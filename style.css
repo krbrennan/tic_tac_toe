@@ -1,0 +1,46 @@
+* {
+  background: wheat;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 400px;
+  max-height: 300px;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 5em;
+}
+
+.game {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.box {
+  background: white;
+  display: flex;
+  height: 100px;
+  width: 100px;
+  list-style: none;
+  border: 2px solid black;
+  border-radius: 20%;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+}
+
+.displayWinner {
+  width: 100%;
+  align-content: center;
+  display: flex;
+}
+
+#winnerText {
+  visibility: hidden;
+  font-size: 4em;
+  margin: 0 auto;
+}
