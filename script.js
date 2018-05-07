@@ -27,7 +27,8 @@ function handleMove(box) {
   box.innerHTML = currentPlayer;
   // if isWinner, return currentPlayer
   // else change current player
-currentPlayerPositions();
+  currentPlayerPositions();
+
   if (isWinner()) {
     return announceWinner();
   } else {
@@ -51,25 +52,54 @@ function isWinner() {
   const across = [[0,1,2],[3,4,5],[6,7,8]];
   const vertical = [[0,3,6],[1,4,7],[2,5,8]];
 
-  thereIsAWinner = false;
+  let thereIsAWinner = false;
 
+  let currentPlayerMoves = currentPlayerPositions();
+  console.log(currentPlayerMoves);
 
-  // aggregate all currentPlayer's positions
+  // aggregate all currentPlayer's positions__^
   // run through diagonal,across,vertical
   // if all of a set is contained (.every(winningCombo)) return true,
   // announce winner
 
-
   diagonal.forEach(function(set) {
-    console.log(set);
+    if (contains(currentPlayerMoves, set)) {
+      thereIsAWinner = true;
+    }
   });
+
+  across.forEach(function(set) {
+    if (contains(currentPlayerMoves, set)) {
+      thereIsAWinner = true;
+    }
+  });
+
+  vertical.forEach(function(set) {
+    if (contains(currentPlayerMoves, set)) {
+      thereIsAWinner = true;
+    }
+  })
+  return thereIsAWinner;
 }
+
+// this function takes in currentPlayer moves array and checks
+// if every move is contained in each of the possible "haystack" combinations
+function contains(needles, haystack) {
+  if (needles.length >= 3) {
+    return needles.every(needle => haystack.includes(parseInt(needle)));
+  }
+};
+
+
 
 function currentPlayerPositions() {
   let positions = []
   boxes.forEach(function(box) {
-    console.log(box.innerHTML);
+    if (box.innerHTML === currentPlayer) {
+      positions.push(box.id);
+    }
   });
+  // Successfully returns id of currentPlayer positions
   return positions;
 }
 
