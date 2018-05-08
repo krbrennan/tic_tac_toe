@@ -1,8 +1,19 @@
+// ToDO:
+// if a winningCombo is present, change the color of the winning squares
+
+
 const boxes = document.querySelectorAll('.box');
 let currentPlayer = 'X';
+let someoneWon = false;
+
 
 boxes.forEach(function(box) {
-  box.addEventListener("click", handleClick);
+  if (someoneWon === false) {
+    box.addEventListener("click", handleClick);
+  } else {
+    console.log('poop');
+    showResetBtn();
+  }
 });
 
 function handleClick(e) {
@@ -25,17 +36,18 @@ function validMove(box) {
 
 function handleMove(box) {
   box.innerHTML = currentPlayer;
+
   // if isWinner, return currentPlayer
   // else change current player
   currentPlayerPositions();
 
   if (isWinner()) {
+    showResetBtn();
     return announceWinner();
   } else {
     if (currentPlayer === 'X') {
       currentPlayer = 'O';
     } else currentPlayer = 'X';
-
   };
   // next, check to see if the move won.
   // probably want to move what's below into that check.
@@ -53,6 +65,7 @@ function isWinner() {
   const vertical = [[0,3,6],[1,4,7],[2,5,8]];
 
   let thereIsAWinner = false;
+  someoneWon = true;
 
   let currentPlayerMoves = currentPlayerPositions();
   console.log(currentPlayerMoves);
@@ -90,8 +103,6 @@ function contains(needles, haystack) {
   }
 };
 
-
-
 function currentPlayerPositions() {
   let positions = []
   boxes.forEach(function(box) {
@@ -110,4 +121,21 @@ function announceWinner() {
   winner.innerHTML = `${currentPlayer} Wins!`
   winner.style.visibility='visible';
   // add playAgain button
+}
+
+
+const resetBtn = document.getElementById('button');
+
+function showResetBtn() {
+  resetBtn.style.visibility='visible';
+}
+
+resetBtn.addEventListener('click', stopPlaying);
+
+function stopPlaying() {
+  boxes.forEach(function(box) {
+    box.innerHTML = "";
+    winner.style.visibility='hidden';
+    resetBtn.style.visibility='hidden';
+  });
 }

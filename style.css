@@ -33,6 +33,10 @@
   font-size: 5em;
 }
 
+.box:hover {
+  cursor: pointer;
+}
+
 .displayWinner {
   width: 100%;
   align-content: center;
@@ -43,4 +47,25 @@
   visibility: hidden;
   font-size: 4em;
   margin: 0 auto;
+}
+
+.resetBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+
+#button {
+  margin: 0 auto;
+  background: white;
+  height: 6em;
+  width: 10em;
+  box-shadow: 2px 2px 2px black;
+  border-radius: 20;
+  visibility: hidden;
+}
+
+#button:hover {
+  cursor: pointer;
 }
