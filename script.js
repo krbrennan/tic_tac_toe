@@ -1,10 +1,11 @@
 // ToDO:
 // if a winningCombo is present, change the color of the winning squares
 
-
 const boxes = document.querySelectorAll('.box');
 let currentPlayer = 'X';
 let someoneWon = false;
+const resetBtn = document.getElementById('button');
+const winner = document.getElementById("winnerText");
 
 
 boxes.forEach(function(box) {
@@ -42,6 +43,7 @@ function handleMove(box) {
 
   if (isWinner()) {
     showResetBtn();
+    colorBoxes();
     return announceWinner();
   } else {
     if (currentPlayer === 'X') {
@@ -66,6 +68,8 @@ function isWinner() {
   let thereIsAWinner = false;
 
   let currentPlayerMoves = currentPlayerPositions();
+
+  let winnerBoxesToColorIn = [];
   // console.log(currentPlayerMoves);
 
   // aggregate all currentPlayer's positions__^
@@ -116,17 +120,17 @@ function currentPlayerPositions() {
   return positions;
 }
 
-const winner = document.getElementById("winnerText");
+
+// Presenting winner, showing reset button, stop players from clicking
 
 function announceWinner() {
   // throw ${blah} wins! in some div
   winner.innerHTML = `${currentPlayer} Wins!`
   winner.style.visibility='visible';
+  currentPlayer = 'X';
   // add playAgain button
 }
 
-
-const resetBtn = document.getElementById('button');
 
 function showResetBtn() {
   resetBtn.style.visibility='visible';
@@ -140,4 +144,8 @@ function stopPlaying() {
     winner.style.visibility='hidden';
     resetBtn.style.visibility='hidden';
   });
+}
+
+function colorBoxes() {
+
 }
