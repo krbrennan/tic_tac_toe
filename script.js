@@ -11,7 +11,6 @@ boxes.forEach(function(box) {
   if (someoneWon === false) {
     box.addEventListener("click", handleClick);
   } else {
-    console.log('poop');
     showResetBtn();
   }
 });
@@ -65,10 +64,9 @@ function isWinner() {
   const vertical = [[0,3,6],[1,4,7],[2,5,8]];
 
   let thereIsAWinner = false;
-  someoneWon = true;
 
   let currentPlayerMoves = currentPlayerPositions();
-  console.log(currentPlayerMoves);
+  // console.log(currentPlayerMoves);
 
   // aggregate all currentPlayer's positions__^
   // run through diagonal,across,vertical
@@ -78,30 +76,34 @@ function isWinner() {
   diagonal.forEach(function(set) {
     if (contains(currentPlayerMoves, set)) {
       thereIsAWinner = true;
+      return thereIsAWinner;
     }
   });
 
   across.forEach(function(set) {
     if (contains(currentPlayerMoves, set)) {
       thereIsAWinner = true;
+      return thereIsAWinner;
     }
   });
 
   vertical.forEach(function(set) {
     if (contains(currentPlayerMoves, set)) {
       thereIsAWinner = true;
+      return thereIsAWinner;
     }
-  })
+  });
   return thereIsAWinner;
 }
 
 // this function takes in currentPlayer moves array and checks
 // if every move is contained in each of the possible "haystack" combinations
 function contains(needles, haystack) {
-  if (needles.length >= 3) {
-    return needles.every(needle => haystack.includes(parseInt(needle)));
-  }
+  let playerMoves = needles.map(ele => parseInt(ele));
+
+  return haystack.every(ele => playerMoves.includes(ele));
 };
+
 
 function currentPlayerPositions() {
   let positions = []
@@ -110,7 +112,7 @@ function currentPlayerPositions() {
       positions.push(box.id);
     }
   });
-  // Successfully returns id of currentPlayer positions
+  // Successfully returns box id's of currentPlayer positions
   return positions;
 }
 
